@@ -5,13 +5,16 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
 # Core Contributors Panel
 
 * Travis Newgren 
-    API communication
+    + API communication
 * Aaron Green 
-    user textbot communication, setup S3 database
+    + user textbot communication
+    + setup S3 database
 * Bobby Lu
-    flask-backend, ubuntu server deployment, image preprocessing and text extraction
+    + flask-backend
+    + ubuntu server deployment
+    + image preprocessing and text extraction
 * Ophir Sneh 
-    vcf file templating and creation, interpretation, natural language processing
+    + vcf file templating and creation
 * Jackson DeDobbelaere
-    pitched the Idea! 
+    + pitched the Idea! 
 

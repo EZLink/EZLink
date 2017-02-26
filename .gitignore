@@ -1,3 +1,4 @@
 aws_credentials.py
 twilio_credentials.py
 __pycache__/
+commitScript.sh
