@@ -19,6 +19,6 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
     + twilio contact card communcation
 * Jackson DeDobbelaere
     + pitched the Idea
-    + help build s3 database
-    + help text communication with twilio
+    + helped build s3 database
+    + text communication with twilio
 
