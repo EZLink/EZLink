@@ -2,7 +2,7 @@ from flask import Flask, request, url_for, session, redirect, send_from_director
 from twilio_api import UrlGrabber
 from name_card_processing import ImageProcessor, TextExtract
 from contact_maker import make_vcf
-from smscomm import respondToUser
+from smscomm import respondToUser, handleText
 import urllib
 
 import cv2

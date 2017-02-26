@@ -52,8 +52,7 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     # get EZLink registered in their phone as a contact
     if checkIfFirstTimeUser(phoneNumber):
         sendEasyLinkCard(easyCardFileName, phoneNumber)
-        registationMessage = "Send us your name for a more personalized experience at any time! "
-                                + " (In the format \"name: first last\")"
+        registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
         sendTextPrompt(phoneNumber, registationMessage)
 
 def sendTextPrompt(toNumber, message):
