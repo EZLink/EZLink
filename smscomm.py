@@ -45,15 +45,15 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     is a first time user
     """
     sendResponseCard(vcfFileName, phoneNumber)
-    sendShareInfoPrompt(phoneNumber)
+#sendShareInfoPrompt(phoneNumber)
 
-    addPotentialCardExchange(phoneNumber)
+#    addPotentialCardExchange(phoneNumber)
 
     # get EZLink registered in their phone as a contact
-    if checkIfFirstTimeUser(phoneNumber):
-        sendEasyLinkCard(easyCardFileName, phoneNumber)
-        registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
-        sendTextPrompt(phoneNumber, registationMessage)
+    # if checkIfFirstTimeUser(phoneNumber):
+    #     sendEasyLinkCard(easyCardFileName, phoneNumber)
+    #     registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
+    #     sendTextPrompt(phoneNumber, registationMessage)
 
 def sendTextPrompt(toNumber, message):
     """Sends the name prompt message to the phone number passed as a parameter"""
