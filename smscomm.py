@@ -82,7 +82,7 @@ def hasNameInDatabase(phoneNumber):
 def addPotentialCardExchange(phoneNumber):
     """adds the card exchange identifier to the current phone number"""
     try:
-        print "adding exchange process"
+        print ("adding exchange process")
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
         s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
