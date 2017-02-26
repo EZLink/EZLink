@@ -15,5 +15,7 @@ class UrlGrabber():
             imageUrl = medias[0].uri
             print(imageUrl)
             return imageUrl
-        except ValueError:
+        except ValueError as e:
+            return ""
+        except Exception as e:
             return ""
