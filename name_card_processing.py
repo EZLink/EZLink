@@ -45,7 +45,6 @@ class TextExtract():
 
     def extract_number(self):
         all_matches = re.findall('\d{3}\D\d{3}\D\d{4}', self.raw_string)
-        print(' THIS IS the matched string' + all_matches[0])
         if all_matches:
             return all_matches[0]
         else:

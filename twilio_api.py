@@ -6,14 +6,12 @@ class UrlGrabber():
         self.sid = sid
         self.num = num
 
-    def get_image(self):
-        #print(self.sid)
+    def get_url(self):
         try:
             client = TwilioRestClient(account_sid, auth_token)
             message = client.messages.get(self.sid)
             medias = message.media_list.list()
             imageUrl = medias[0].uri
-            print(imageUrl)
             return imageUrl
         except ValueError:
             return None
