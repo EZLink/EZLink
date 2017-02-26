@@ -3,6 +3,5 @@ twilio==5.7.0
 boto3==1.4.4
 botocore==1.5.18
 s3transfer==0.1.10
-pytesseract
-opencv
-
+pytesseract==0.1.6
+opencv==3.2.0.6
