@@ -1,9 +1,9 @@
 from flask import Flask, request, url_for, session, redirect, send_from_directory
 from twilio_api import UrlGrabber
-from name_card_processing import ImageProcessor
+from name_card_processing import ImageProcessor, TextExtract
 from contact_maker import make_vcf
 from smscomm import respondToUser
-
+import urllib
 
 import cv2
 
@@ -31,15 +31,22 @@ def input():
         grabber = UrlGrabber(sid, num)
         # TODO change name
         url = grabber.get_image()
+        print(url)
 
-        ori_img = cv2.imread('nc6.jpeg', cv2.IMREAD_GRAYSCALE)
+        # TODO change naming holly molly what is all these hodgepodge BULLSHIT
+        temp_file_name = '{}.jpeg'.format(num)
+        req = urllib.request.Request(url, headers={'User-Agent' : 'Magic Browser'})
+        response = urllib.request.urlopen(req)
+        with open(temp_file_name, 'wb') as f:
+            f.write(response.read())
+            
+        ori_img = cv2.imread(temp_file_name, cv2.IMREAD_GRAYSCALE)
         image_processor = ImageProcessor(ori_img)
         result = image_processor.image_to_string()
+        extracter = TextExtract(result)
+        args = extracter.extract()
             
-        file_name = make_vcf(*result)
-
-        # TODO delete
-        print(file_name)
+        file_name = make_vcf(*args)
 
         respondToUser(file_name, num, 'EZLink.vcf')
         return "End of the Input"
