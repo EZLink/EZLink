@@ -1,8 +1,9 @@
 # EZLink
 
-_An SMS-messaging tool for automatically creating a phone contact using a physical business card. Never lose a potential connection again!_
-  * Takes a picture of a business card (sent to Twilio) and returns a digital contact card.
-  * Uses python to perform image recognition in order to extract a name and phone number from a physical object.
+_Ever gotten a really important person's business card, intended to contact them, and lost it? This will fix that._
+  * An SMS-messaging tool for automatically creating a phone contact using a physical business card.
+  * Utilizes image recognition to extract a name and phone number from a physical object.
+  * Creates a virtual contact card using processed data. 
   * Uses Flask back-end to serve .vcf files (phone contact file) to the Twilio API to be sent back to the user.
 
 ## USAGE
@@ -24,7 +25,7 @@ _An SMS-messaging tool for automatically creating a phone contact using a physic
   * [Video demonstration of use](https://vimeo.com/205741775)
 
 ## Contributor Guide
-  * [LINK TO CONTRIBUTING.md]
+  * 
 
 ## License
   * This project is on the MIT License
