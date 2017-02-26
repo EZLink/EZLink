@@ -29,9 +29,7 @@ def input():
         sid = request.args["SmsMessageSid"]
 
         grabber = UrlGrabber(sid, num)
-        # TODO change name
-        url = grabber.get_image()
-        print(url)
+        url = grabber.get_url()
 
         # TODO change naming holly molly what is all these hodgepodge BULLSHIT
         temp_file_name = '{}.jpeg'.format(num)
