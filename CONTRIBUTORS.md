@@ -15,7 +15,8 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
     + ubuntu server deployment
     + image preprocessing and text extraction
 * Ophir Sneh 
-    + vcf file templating and creation
+    + vcard/vcf file creation and templating
+    + correct formatting of vcf files as contact cards
 * Jackson DeDobbelaere
     + pitched the Idea
     + help build s3 database
