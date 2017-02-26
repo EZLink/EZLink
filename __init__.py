@@ -50,7 +50,7 @@ def input():
             respondToUser(file_name, num, 'EZLink.vcf')
 
         if(len(request.args["Body"]) > 0): #there is text in body
-            handleText(request.args["Body"], num)
+            handleText(request.args["Body"], num, args[2])
 
         return "End of the Input"
 
