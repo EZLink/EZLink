@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:3.0
+N:{last_name};{first_name};;;
+FN:{first_name} {last_name}
+TEL;type=CELL;type=VOICE;type=pref:{phone_number}
+END:VCARD

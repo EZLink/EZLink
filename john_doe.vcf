@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:3.0
+N:doe;john;;;
+FN:john doe
+TEL;type=CELL;type=VOICE;type=pref:+1 (217) 419-7458
+END:VCARD
