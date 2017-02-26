@@ -121,7 +121,7 @@ def changeName(name, phoneNumber):
     except ClientError as e:
         associateNameWithNumber(name, phoneNumber)
 
-def exchangingCard(name, phoneNumber):
+def exchangingCard(phoneNumber):
     """Checks to see if the user has a \"pending card exchange\" tag associated with them"""
     try:
         if ".txt" not in phoneNumber:
@@ -150,9 +150,22 @@ def handleText(text, phoneNumber):
         changeName(name, phoneNumber)
     elif text == "yes" or text == "yeah" or text == "yup":
         if exchangingCard(text, phoneNumber):
-            exchangeCard(text, phoneNumber)
-    else:
-        associateNameWithNumber(text, phoneNumber)
+            userName = getName(phoneNumber)
+            exchangeCard(userName, phoneNumber)
+
+def getName(phoneNumber):
+    """Returns the name of the user which matches the phone number"""
+    try:
+        if ".txt" not in phoneNumber:
+            phoneNumber += ".txt"
+        s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+        s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
+        with open(phoneNumber, "r") as file:
+            lines = file.read()
+            return lines[0]
+    except ClientError as e:
+        return ""
+
 
 def sendShareInfoPrompt(phoneNumber):
     """Sends text to the user prompting them to share their information with their new contact"""
@@ -171,7 +184,7 @@ def exchangeCard(name, phoneNumber, recipientPhoneNumber):
     try:
         nameParts = name.split(" ")
         formattedName = "_".join(nameParts)
-        cardURL = "http://104.131.28.198:8000/vcf/" + formattedName
+        cardURL = "http://104.131.28.198:8000/vcf/" + formattedName + ".vcf"
         sendCardExchange(cardURL, recipientPhoneNumber)
     except ClientError as e:
         failMessage = "Unable to send your information."
