@@ -16,7 +16,7 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
     + image preprocessing and text extraction
 * Ophir Sneh 
     + vcard/vcf file creation and templating
-    + correct formatting of vcf files as contact cards
+    + twilio formatting of vcards as contact cards
 * Jackson DeDobbelaere
     + pitched the Idea
     + help build s3 database
