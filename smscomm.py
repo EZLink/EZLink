@@ -82,7 +82,9 @@ def hasNameInDatabase(phoneNumber):
 def addPotentialCardExchange(phoneNumber):
     """adds the card exchange identifier to the current phone number"""
     try:
-        phoneNumber += ".txt"
+        print "adding exchange process"
+        if ".txt" not in phoneNumber:
+            phoneNumber += ".txt"
         s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "a") as file:
@@ -131,7 +133,7 @@ def exchangingCard(phoneNumber):
             exchangingCard = False
             lines = file.read().split("\n")
             for line in lines:
-                print line
+                print (line)
                 if line == "exchanging information":
                     exchangingCard = True
                     break
@@ -149,18 +151,18 @@ def handleText(text, phoneNumber):
         name = " ".join(textParts)
         changeName(name, phoneNumber)
     elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
-        print "checking card exchange"
+        print ("checking card exchange")
         if exchangingCard(phoneNumber):
-            print "exchange card passed"
+            print ("exchange card passed")
             userName = getName(phoneNumber)
-            print userName
+            print (userName)
             exchangeCard(userName, phoneNumber)
-            print "successful exchange"
+            print ("successful exchange")
 
 def getName(phoneNumber):
     """Returns the name of the user which matches the phone number"""
     try:
-        print "getting name"
+        print ("getting name")
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
         s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
@@ -178,28 +180,28 @@ def sendShareInfoPrompt(phoneNumber):
 
 def sendCardExchange(cardURL, recipientPhoneNumber):
     """Sends the users contact information to their new contact"""
-    print "sending card exchange"
+    print ("sending card exchange")
 
     message = "A new contact of yours shared their information with you!"
     client = TwilioRestClient(Twilio_Credentials.accountName, Twilio_Credentials.accountPassword)
     fromNumber = Twilio_Credentials.twilioNumber
     client.messages.create(to = recipientPhoneNumber, from_ = fromNumber, body = message, media_url = cardURL)
 
-    print "sent card exchange"
+    print ("sent card exchange")
 
 def exchangeCard(name, phoneNumber, recipientPhoneNumber):
     """Exchanges the users contact card with their new contact"""
     try:
-        print "attempting to exchange card"
+        print ("attempting to exchange card")
         nameParts = name.split(" ")
         formattedName = "_".join(nameParts)
         cardURL = "http://104.131.28.198:8000/vcf/" + formattedName + ".vcf"
         sendCardExchange(cardURL, recipientPhoneNumber)
-        print "exchanging card"
+        print ("exchanging card")
     except ClientError as e:
         failMessage = "Unable to send your information."
         sendTextPrompt(phoneNumber, failMessage)
-        print "failed to exchange card"
+        print ("failed to exchange card")
 
 if __name__ == "__main__":
     pass
