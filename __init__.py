@@ -32,7 +32,7 @@ def input():
         url = grabber.get_url()
 
         # TODO change naming holly molly what is all these hodgepodge BULLSHIT
-        temp_file_name = '{}.jpeg'.format(num)
+        temp_file_name = '/home/bobby/tempImg/{}.jpeg'.format(num)
         req = urllib.request.Request(url, headers={'User-Agent' : 'Magic Browser'})
         response = urllib.request.urlopen(req)
         with open(temp_file_name, 'wb') as f:
