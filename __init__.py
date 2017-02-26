@@ -28,10 +28,10 @@ def input():
         num = request.args["From"]
         sid = request.args["SmsMessageSid"]
 
-        grabber = UrlGrabber(sid, num)
+        grabber = UrlGrabber(sid)
         url = grabber.get_url()
 
-        if(len(url) > 0) #there is image associated with message
+        if(len(url) > 0): #there is image associated with message
             # TODO change naming holly molly what is all these hodgepodge BULLSHIT
             temp_file_name = '/home/bobby/tempImg/{}.jpeg'.format(num)
             req = urllib.request.Request(url, headers={'User-Agent' : 'Magic Browser'})
@@ -50,7 +50,7 @@ def input():
             respondToUser(file_name, num, 'EZLink.vcf')
 
         if(len(request.args["Body"]) > 0): #there is text in body
-            associateNameWithNumber(request.args["Body"], num):
+            handleText(request.args["Body"], num)
 
         return "End of the Input"
 
