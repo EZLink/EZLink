@@ -141,7 +141,7 @@ def exchangingCard(phoneNumber):
     except ClientError as e:
         return False
 
-def handleText(text, phoneNumber):
+def handleText(text, phoneNumber, newContactPhoneNumber):
     """mother method for handling incoming messages with text"""
     lowerText = text.lower()
     textParts = lowerText.split(" ")
@@ -156,7 +156,7 @@ def handleText(text, phoneNumber):
             print ("exchange card passed")
             userName = getName(phoneNumber)
             print (userName)
-            exchangeCard(userName, phoneNumber)
+            exchangeCard(userName, phoneNumber, newContactPhoneNumber)
             print ("successful exchange")
 
 def getName(phoneNumber):
