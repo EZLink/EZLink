@@ -8,8 +8,7 @@ _Ever gotten a really important person's business card, intended to contact them
 
 ## USAGE
   * Get a business card at a career fair.
-  * Take a picture of the card so you don't lose it.
-  * Text it to EZLink's easy to reach phone number -- (872) 240-5571
+  * Take a picture of the card and text it to EZLink's easy to reach phone number: __(872) 240-5571__
   * EZLink will respond with a contact card, allowing you to easily store the contact
 
 ## BUILD/INSTALLATION INSTRUCTIONS
