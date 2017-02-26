@@ -147,8 +147,8 @@ def handleText(text, phoneNumber):
         textParts.remove("name:")
         name = " ".join(textParts)
         changeName(name, phoneNumber)
-    elif text == "yes" or text == "yeah" or text == "yup":
-        if exchangingCard(text, phoneNumber):
+    elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
+        if exchangingCard(phoneNumber):
             userName = getName(phoneNumber)
             exchangeCard(userName, phoneNumber)
 
