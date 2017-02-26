@@ -17,6 +17,7 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
 * Ophir Sneh 
     + vcard/vcf file creation and templating
     + twilio contact card communcation
+    + in development: natural language processing 
 * Jackson DeDobbelaere
     + pitched the Idea
     + helped build s3 database
