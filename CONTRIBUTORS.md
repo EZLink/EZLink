@@ -11,7 +11,7 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
 * Bobby Lu
     flask-backend, ubuntu server deployment, image preprocessing and text extraction
 * Ophir Sneh 
-    vcf file templating, interpretation, natural language processing
+    vcf file templating and creation, interpretation, natural language processing
 * Jackson DeDobbelaere
     pitched the Idea! 
 
