@@ -28,4 +28,4 @@ _Ever gotten a really important person's business card, intended to contact them
   * [CONTRIBUTERS.md](https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md)
 
 ## License
-  * This project is on the MIT License
+  * This project is under the MIT License
