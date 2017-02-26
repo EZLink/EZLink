@@ -25,7 +25,7 @@ _Ever gotten a really important person's business card, intended to contact them
   * [Video demonstration of use](https://vimeo.com/205741775)
 
 ## Contributor Guide
-  * (CONTRIBUTERS.md)[https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md]
+  * [CONTRIBUTERS.md](https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md)
 
 ## License
   * This project is on the MIT License
