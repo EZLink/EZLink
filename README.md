@@ -1,23 +1,31 @@
-# [EasyLink]
+# EZLink
 
-[An SMS-messaging tool for automatically creating a phone contact using a physical business card.]
-  * [Uses Flask back-end to serve .vcf files (phone contact file) to the Twilio API to be sent back to the user.]
-  * []
+_Ever gotten a really important person's business card, intended to contact them, and lost it? This will fix that._
+  * An SMS-messaging tool for automatically creating a phone contact using a physical business card.
+  * Utilizes image recognition to extract a name and phone number from a physical object.
+  * Creates a virtual contact card using processed data. 
+  * Uses Flask back-end to serve .vcf files (phone contact file) to the Twilio API to be sent back to the user.
 
 ## USAGE
-  * [USAGE EXAMPLE]
+  * Get a business card at a career fair.
+  * Take a picture of the card so you don't lose it.
+  * Text it to EZLink's easy to reach phone number -- (872) 240-5571
 
 ## BUILD/INSTALLATION INSTRUCTIONS
-  * [PLATFORM 1]
-    * [BUILD EXAMPLE]
-  * [PLATFORM 2]
-    * [BUILD EXAMPLE]
+  * Mac/OS
+    * Make a twilio/AWS account (for free!)
+    * Provide the respective API keys in files called `twilio_credentials.py` and `aws_credentials.py`
+    * `pip install requirements.txt`
+    * A set up script for a server will be available soon. Until then, our server will be up (for at least four months).
 
-## [INTERFACES] _(if applicable)_
+## INTERFACES
+  * Everything is done by sending a text message.
 
 ## OTHER SOURCES OF DOCUMENTATION
+  * [Video demonstration of use](https://vimeo.com/205743684)
 
 ## Contributor Guide
-[LINK TO CONTRIBUTING.md]
+  * [CONTRIBUTERS.md](https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md)
 
 ## License
+  * This project is under the MIT License
