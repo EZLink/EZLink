@@ -15,7 +15,7 @@ _Ever gotten a really important person's business card, intended to contact them
   * Mac/OS
     * Make a twilio/AWS account (for free!)
     * Provide the respective API keys in files called `twilio_credentials.py` and `aws_credentials.py`
-    * `pip install requirements.txt`
+    * `pip install -r requirements.txt`
     * A set up script for a server will be available soon. Until then, our server will be up (for at least four months).
 
 ## INTERFACES
