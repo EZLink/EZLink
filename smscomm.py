@@ -48,7 +48,7 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     sendShareInfoPrompt(phoneNumber)
 
     addPotentialCardExchange(phoneNumber)
-    
+
     if checkIfFirstTimeUser(phoneNumber):
         sendEasyLinkCard(easyCardFileName, phoneNumber)
         registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
@@ -141,14 +141,14 @@ def exchangingCard(phoneNumber):
 def handleText(text, phoneNumber):
     """mother method for handling incoming messages with text"""
     lowerText = text.lower()
-    textParts = text.split(" ")
+    textParts = lowerText.split(" ")
 
     if len(textParts) > 1 and textParts[0] == "name:":
         textParts.remove("name:")
         name = " ".join(textParts)
         changeName(name, phoneNumber)
-    elif text == "yes" or text == "yeah" or text == "yup":
-        if exchangingCard(text, phoneNumber):
+    elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
+        if exchangingCard(phoneNumber):
             userName = getName(phoneNumber)
             exchangeCard(userName, phoneNumber)
 
@@ -164,7 +164,6 @@ def getName(phoneNumber):
             return lines[0]
     except ClientError as e:
         return ""
-
 
 def sendShareInfoPrompt(phoneNumber):
     """Sends text to the user prompting them to share their information with their new contact"""
