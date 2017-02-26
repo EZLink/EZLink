@@ -1,15 +1,23 @@
-# Hack Illinois 2017 EasyLink Project
+# [EasyLink]
 
-## Inspiration
+[An SMS-messaging tool for automatically creating a phone contact using a physical business card.]
+  * [Uses Flask back-end to serve .vcf files (phone contact file) to the Twilio API to be sent back to the user.]
+  * []
 
-## What it does
+## USAGE
+  * [USAGE EXAMPLE]
 
-## How we built it
+## BUILD/INSTALLATION INSTRUCTIONS
+  * [PLATFORM 1]
+    * [BUILD EXAMPLE]
+  * [PLATFORM 2]
+    * [BUILD EXAMPLE]
 
-## Challenges we ran into
+## [INTERFACES] _(if applicable)_
 
-## Accomplishments that we're proud of
+## OTHER SOURCES OF DOCUMENTATION
 
-## What we learned
+## Contributor Guide
+[LINK TO CONTRIBUTING.md]
 
-## What's next for EasyLink
+## License
