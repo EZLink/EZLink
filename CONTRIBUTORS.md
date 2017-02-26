@@ -5,7 +5,8 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
 # Core Contributors Panel
 
 * Travis Newgren 
-    + API communication
+    + API Communication
+    + Twilio Setup 
 * Aaron Green 
     + user textbot communication
     + setup S3 database
@@ -16,5 +17,7 @@ Thanks to all the contributors, mentors and all authors of online resources. Wit
 * Ophir Sneh 
     + vcf file templating and creation
 * Jackson DeDobbelaere
-    + pitched the Idea! 
+    + pitched the Idea
+    + help build s3 database
+    + help text communication with twilio
 
