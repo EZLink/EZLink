@@ -1,6 +1,8 @@
 import pytesseract
 import cv2
 import numpy as np
+import re
+from PIL import Image
 
 class ImageProcessor():
     """
@@ -14,14 +16,38 @@ class ImageProcessor():
         return
 
     def image_to_string(self):
-        return ['john', 'doe', '+1 (217) 419-7458']
         self.preprocess()
-        self.result = pytesseract.image_to_str(self.processed_img)
+        self.result = pytesseract.image_to_string(self.processed_img)
         return self.result
 
-    def pre_process(self):
-        ret, res = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    def preprocess(self):
+        ret, res = cv2.threshold(self.original_img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         self.processed_img = Image.fromarray(res)
         return
         
+
+class TextExtract():
+    """
+    this is the class to regex parse all the info we need from the string
+    """
+
+    def __init__(self, raw_string):
+        self.raw_string = raw_string
+        print(raw_string)
+    
+    def extract(self):
+        self.first, self.last = self.extract_name()
+        self.number = self.extract_number()
+        return [self.first, self.last, self.number]
+
+    def extract_name(self):
+        return 'Bull', 'Shit'
+
+    def extract_number(self):
+        all_matches = re.findall('\d{3}\D\d{3}\D\d{4}', self.raw_string)
+        print(' THIS IS the matched string' + all_matches[0])
+        if all_matches:
+            return all_matches[0]
+        else:
+            return ''
 
