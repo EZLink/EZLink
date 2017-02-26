@@ -4,7 +4,6 @@ from name_card_processing import ImageProcessor, TextExtract
 from contact_maker import make_vcf
 from smscomm import respondToUser, handleText
 import urllib
-
 import cv2
 
 app = Flask(__name__, static_url_path='')
@@ -46,10 +45,13 @@ def input():
             args = extracter.extract()
                 
             file_name = make_vcf(*args)
-
+            # putPhoneNumberInDatabase(*args)
+            # TODO maybeput them in redis
+            
             respondToUser(file_name, num, 'EZLink.vcf')
 
         if(len(request.args["Body"]) > 0): #there is text in body
+            # TODO Maybe get key  from redis 
             handleText(request.args["Body"], num)
 
         return "End of the Input"
