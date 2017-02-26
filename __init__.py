@@ -2,7 +2,7 @@ from flask import Flask, request, url_for, session, redirect, send_from_director
 from twilio_api import UrlGrabber
 from name_card_processing import ImageProcessor, TextExtract
 from contact_maker import make_vcf
-from smscomm import respondToUser, handleText
+from smscomm import respondToUser #, handleText
 import urllib
 
 import cv2
@@ -62,4 +62,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=False)

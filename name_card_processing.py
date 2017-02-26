@@ -41,7 +41,12 @@ class TextExtract():
         return [self.first, self.last, self.number]
 
     def extract_name(self):
-        return 'Bull', 'Shit'
+        all_matches = re.findall('[A-Z][a-z,A-Z]+', self.raw_string)
+        if len(all_matches)>=1:
+            return all_matches[0], all_matches[1]
+        else:
+            return "can't", "tell"
+
 
     def extract_number(self):
         all_matches = re.findall('\d{3}\D\d{3}\D\d{4}', self.raw_string)
