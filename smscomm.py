@@ -47,12 +47,12 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     sendResponseCard(vcfFileName, phoneNumber)
     sendShareInfoPrompt(phoneNumber)
 
-    addPotentialCardExchange(phoneNumber)
-
     if checkIfFirstTimeUser(phoneNumber):
         sendEasyLinkCard(easyCardFileName, phoneNumber)
         registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
         sendTextPrompt(phoneNumber, registationMessage)
+
+    addPotentialCardExchange(phoneNumber)
 
 def sendTextPrompt(toNumber, message):
     """Sends the name prompt message to the phone number passed as a parameter"""
@@ -169,7 +169,9 @@ def getName(phoneNumber):
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "r") as file:
             lines = file.read()
-            return lines[0]
+            for line in lines:
+                if line != "exchanging information":
+                    return line
     except ClientError as e:
         return ""
 
