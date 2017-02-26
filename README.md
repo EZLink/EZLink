@@ -22,7 +22,7 @@ _Ever gotten a really important person's business card, intended to contact them
   * Everything is done by sending a text message.
 
 ## OTHER SOURCES OF DOCUMENTATION
-  * [Video demonstration of use](https://vimeo.com/205741775)
+  * [Video demonstration of use](https://vimeo.com/205743684)
 
 ## Contributor Guide
   * [CONTRIBUTERS.md](https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md)
