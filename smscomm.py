@@ -45,14 +45,11 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     is a first time user
     """
     sendResponseCard(vcfFileName, phoneNumber)
-    sendShareInfoPrompt(phoneNumber)
 
     if checkIfFirstTimeUser(phoneNumber):
         sendEasyLinkCard(easyCardFileName, phoneNumber)
         registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
         sendTextPrompt(phoneNumber, registationMessage)
-
-    addPotentialCardExchange(phoneNumber)
 
 def sendTextPrompt(toNumber, message):
     """Sends the name prompt message to the phone number passed as a parameter"""
@@ -82,7 +79,6 @@ def hasNameInDatabase(phoneNumber):
 def addPotentialCardExchange(phoneNumber):
     """adds the card exchange identifier to the current phone number"""
     try:
-        print ("adding exchange process")
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
         s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
@@ -133,7 +129,6 @@ def exchangingCard(phoneNumber):
             exchangingCard = False
             lines = file.read().split("\n")
             for line in lines:
-                print (line)
                 if line == "exchanging information":
                     exchangingCard = True
                     break
@@ -141,7 +136,7 @@ def exchangingCard(phoneNumber):
     except ClientError as e:
         return False
 
-def handleText(text, phoneNumber, newContactPhoneNumber):
+def handleText(text, phoneNumber):
     """mother method for handling incoming messages with text"""
     lowerText = text.lower()
     textParts = lowerText.split(" ")
@@ -150,19 +145,14 @@ def handleText(text, phoneNumber, newContactPhoneNumber):
         textParts.remove("name:")
         name = " ".join(textParts)
         changeName(name, phoneNumber)
-    elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
-        print ("checking card exchange")
-        if exchangingCard(phoneNumber):
-            print ("exchange card passed")
-            userName = getName(phoneNumber)
-            print (userName)
-            exchangeCard(userName, phoneNumber, newContactPhoneNumber)
-            print ("successful exchange")
+    # elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
+    #     if exchangingCard(phoneNumber):
+    #         userName = getName(phoneNumber)
+    #         exchangeCard(userName, phoneNumber, newContactPhoneNumber)
 
 def getName(phoneNumber):
     """Returns the name of the user which matches the phone number"""
     try:
-        print ("getting name")
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
         s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
@@ -182,28 +172,30 @@ def sendShareInfoPrompt(phoneNumber):
 
 def sendCardExchange(cardURL, recipientPhoneNumber):
     """Sends the users contact information to their new contact"""
-    print ("sending card exchange")
-
     message = "A new contact of yours shared their information with you!"
     client = TwilioRestClient(Twilio_Credentials.accountName, Twilio_Credentials.accountPassword)
     fromNumber = Twilio_Credentials.twilioNumber
     client.messages.create(to = recipientPhoneNumber, from_ = fromNumber, body = message, media_url = cardURL)
 
-    print ("sent card exchange")
-
 def exchangeCard(name, phoneNumber, recipientPhoneNumber):
     """Exchanges the users contact card with their new contact"""
     try:
-        print ("attempting to exchange card")
         nameParts = name.split(" ")
         formattedName = "_".join(nameParts)
         cardURL = "http://104.131.28.198:8000/vcf/" + formattedName + ".vcf"
         sendCardExchange(cardURL, recipientPhoneNumber)
-        print ("exchanging card")
     except ClientError as e:
         failMessage = "Unable to send your information."
         sendTextPrompt(phoneNumber, failMessage)
-        print ("failed to exchange card")
+
+def putPhoneNumberInDatabase(firstName, lastName, phoneNumber):
+    """Puts phone number in database with phoneNumber as file name and full name written to file"""
+    name = firstName + " " + lastName
+    s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+    with open(phoneNumber + ".txt", "w") as file:
+        file.write(name)
+    putFileInS3(s3Client, phoneNumber + ".txt")
+    os.remove(phoneNumber + ".txt")
 
 if __name__ == "__main__":
     pass
