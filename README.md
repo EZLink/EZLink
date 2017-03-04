@@ -10,11 +10,10 @@ EZLink utilizes image recognition to extract a name and phone number from a phys
   * EZLink will respond with a contact card, allowing you to easily store the contact.
 
 ## BUILD/INSTALLATION INSTRUCTIONS
-  * Mac/OS
+  * Unix:
     * Make free Twilio and AWS accounts.
     * Provide the respective API keys in files called `twilio_credentials.py` and `aws_credentials.py`
     * `pip install -r requirements.txt` to install all dependencies.
-    * A set up script for a server will be available soon. Until then, our server will be up, allowing you to use our APIs.
 
 ## INTERFACES
   * Everything is done by sending a text message. 
