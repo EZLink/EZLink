@@ -1,8 +1,8 @@
-"""
-Given a first name, last name, and phone number, creates a vcard file (.vcf)
-with their contact information
-"""
 def make_vcf(first_name, last_name, phone_number):
+    """
+    Given a first name, last name, and phone number, creates a vcard file (.vcf)
+    with their contact information
+    """
 
     # read the template file
     with open('/home/bobby/Flask/Flask/template.vcf', 'r') as template:
@@ -17,5 +17,3 @@ def make_vcf(first_name, last_name, phone_number):
     return file_name
 
 
-if __name__ == "__main__":
-    make_vcf("John", "Doe", "+1 (650) 650 6500")

@@ -199,5 +199,3 @@ def putPhoneNumberInDatabase(firstName, lastName, phoneNumber):
 
 if __name__ == "__main__":
     pass
-    #handleText("name: aaron green", "5024243665")
-    #handleText("billy joel", "5024243665")
