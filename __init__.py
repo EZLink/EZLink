@@ -27,7 +27,7 @@ def input():
     Cues input processing and response. Called by twilio.
     NOT intended for the user to use
     """
-    if(('From' in request.args) and ('SmsMessageSid' in request.args)):
+    if 'From' in request.args and 'SmsMessageSid' in request.args:
         phone_number = request.args["From"]
         sid = request.args["SmsMessageSid"]
 
@@ -35,7 +35,7 @@ def input():
         grabber = UrlGrabber(sid)
         url = grabber.get_url()
 
-        if(contains_image(url)): 
+        if contains_image(url):
             user_uploaded_file_path = download_image(url, phone_number)
 
             image_processor = ImageProcessor(user_uploaded_file_path)
@@ -53,7 +53,7 @@ def input():
         return "The message is successfully processed"
 
 def contains_image(url):
-    return (len(url) > 0)
+    return len(url) > 0
 
 def download_image(url, phone_number):
     """
