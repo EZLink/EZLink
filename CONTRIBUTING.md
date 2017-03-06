@@ -14,7 +14,7 @@ https://github.com/EZLink/EZLink/blob/master/CONTRIBUTORS.md
     + shaoqin2@illinois.edu
     + trvisn2@illinois.edu
     + aarongg2@illinois.edu
-    + sneh2@illinois.com
+    + osneh2@illinois.com
     + jackdedobb@me.com
 
 ## Development environment details

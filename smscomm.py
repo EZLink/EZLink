@@ -5,13 +5,16 @@ import aws_credentials as AWS_Credentials
 import os
 from botocore.exceptions import ClientError
 
+
 def putFileInS3(client, fileName):
     """stores vcf file in amazon S3 bucket"""
     client.upload_file(fileName, "easylink-users", fileName)
 
+
 def deleteFileFromS3(client, fileName):
     """deletes the object with the filename from the S3 bucket"""
-    client.delete_object(Bucket = "easylink-users", Key = fileName)
+    client.delete_object(Bucket="easylink-users", Key=fileName)
+
 
 def checkIfFirstTimeUser(phoneNumber):
     """checks if the phone number is in the S3 database,
@@ -21,7 +24,8 @@ def checkIfFirstTimeUser(phoneNumber):
     firstTimeUser = False
     if ".txt" not in phoneNumber:
         phoneNumber += ".txt"
-    s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+    s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                            aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
     try:
         numberInBucket = s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         os.remove(phoneNumber)
@@ -39,6 +43,7 @@ def checkIfFirstTimeUser(phoneNumber):
 
     return firstTimeUser
 
+
 def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
     """sends the response card corresponding to the user's input.
     Send the name prompt and standard EasyLink card if the user
@@ -51,15 +56,18 @@ def respondToUser(vcfFileName, phoneNumber, easyCardFileName):
         registationMessage = "Send us your name for a more personalized experience at any time! " + ' (In the format \"name: first last\")'
         sendTextPrompt(phoneNumber, registationMessage)
 
+
 def sendTextPrompt(toNumber, message):
     """Sends the name prompt message to the phone number passed as a parameter"""
     client = TwilioRestClient(Twilio_Credentials.accountName, Twilio_Credentials.accountPassword)
     fromNumber = Twilio_Credentials.twilioNumber
-    client.messages.create(to = toNumber, from_ = fromNumber, body = message)
+    client.messages.create(to=toNumber, from_=fromNumber, body=message)
+
 
 def sendEasyLinkCard(easyCardFileName, toNumber):
     """Sends the default EasyLink card to the phone number passed as a parameter"""
     sendResponseCard(easyCardFileName, toNumber)
+
 
 def sendResponseCard(vcfFileName, toNumber):
     """Sends the response card to the phone number passed as a parameter"""
@@ -67,7 +75,8 @@ def sendResponseCard(vcfFileName, toNumber):
 
     client = TwilioRestClient(Twilio_Credentials.accountName, Twilio_Credentials.accountPassword)
     fromNumber = Twilio_Credentials.twilioNumber
-    client.messages.create(to = toNumber, from_ = fromNumber, media_url = vcfURL)
+    client.messages.create(to=toNumber, from_=fromNumber, media_url=vcfURL)
+
 
 def hasNameInDatabase(phoneNumber):
     """Returns true if the user has a name in the database, false if the file is empty"""
@@ -76,12 +85,14 @@ def hasNameInDatabase(phoneNumber):
     else:
         return True
 
+
 def addPotentialCardExchange(phoneNumber):
     """adds the card exchange identifier to the current phone number"""
     try:
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
-        s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+        s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                                aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "a") as file:
             file.write("\nexchanging information")
@@ -90,6 +101,7 @@ def addPotentialCardExchange(phoneNumber):
     except ClientError as e:
         return
 
+
 def associateNameWithNumber(name, phoneNumber):
     """Downloads the phone number file from the S3 database, and writes the users
     name to the file, and uploads it to the database
@@ -97,19 +109,22 @@ def associateNameWithNumber(name, phoneNumber):
     checkIfFirstTimeUser(phoneNumber)
     if ".txt" not in phoneNumber:
         phoneNumber += ".txt"
-    s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+    s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                            aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
     s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
     with open(phoneNumber, "w") as file:
         file.write(name)
     putFileInS3(s3Client, phoneNumber)
     os.remove(phoneNumber)
 
+
 def changeName(name, phoneNumber):
     """Changes the name of the user in the database"""
     try:
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
-        s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+        s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                                aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "w") as file:
             file.write(name)
@@ -118,12 +133,14 @@ def changeName(name, phoneNumber):
     except ClientError as e:
         associateNameWithNumber(name, phoneNumber)
 
+
 def exchangingCard(phoneNumber):
     """Checks to see if the user has a \"pending card exchange\" tag associated with them"""
     try:
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
-        s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+        s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                                aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "r") as file:
             exchangingCard = False
@@ -136,6 +153,7 @@ def exchangingCard(phoneNumber):
     except ClientError as e:
         return False
 
+
 def handleText(text, phoneNumber):
     """mother method for handling incoming messages with text"""
     lowerText = text.lower()
@@ -145,17 +163,19 @@ def handleText(text, phoneNumber):
         textParts.remove("name:")
         name = " ".join(textParts)
         changeName(name, phoneNumber)
-    # elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
-    #     if exchangingCard(phoneNumber):
-    #         userName = getName(phoneNumber)
-    #         exchangeCard(userName, phoneNumber, newContactPhoneNumber)
+        # elif lowerText == "yes" or lowerText == "yeah" or lowerText == "yup":
+        #     if exchangingCard(phoneNumber):
+        #         userName = getName(phoneNumber)
+        #         exchangeCard(userName, phoneNumber, newContactPhoneNumber)
+
 
 def getName(phoneNumber):
     """Returns the name of the user which matches the phone number"""
     try:
         if ".txt" not in phoneNumber:
             phoneNumber += ".txt"
-        s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+        s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                                aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
         s3Client.download_file("easylink-users", phoneNumber, phoneNumber)
         with open(phoneNumber, "r") as file:
             lines = file.read()
@@ -165,17 +185,20 @@ def getName(phoneNumber):
     except ClientError as e:
         return ""
 
+
 def sendShareInfoPrompt(phoneNumber):
     """Sends text to the user prompting them to share their information with their new contact"""
     message = "Would you like to share your contact information with your new contact?"
     sendTextPrompt(phoneNumber, message)
+
 
 def sendCardExchange(cardURL, recipientPhoneNumber):
     """Sends the users contact information to their new contact"""
     message = "A new contact of yours shared their information with you!"
     client = TwilioRestClient(Twilio_Credentials.accountName, Twilio_Credentials.accountPassword)
     fromNumber = Twilio_Credentials.twilioNumber
-    client.messages.create(to = recipientPhoneNumber, from_ = fromNumber, body = message, media_url = cardURL)
+    client.messages.create(to=recipientPhoneNumber, from_=fromNumber, body=message, media_url=cardURL)
+
 
 def exchangeCard(name, phoneNumber, recipientPhoneNumber):
     """Exchanges the users contact card with their new contact"""
@@ -188,16 +211,17 @@ def exchangeCard(name, phoneNumber, recipientPhoneNumber):
         failMessage = "Unable to send your information."
         sendTextPrompt(phoneNumber, failMessage)
 
+
 def putPhoneNumberInDatabase(firstName, lastName, phoneNumber):
     """Puts phone number in database with phoneNumber as file name and full name written to file"""
     name = firstName + " " + lastName
-    s3Client = boto3.client('s3', aws_access_key_id = AWS_Credentials.AWS_ACCESS_KEY, aws_secret_access_key = AWS_Credentials.AWS_SECERET_KEY)
+    s3Client = boto3.client('s3', aws_access_key_id=AWS_Credentials.AWS_ACCESS_KEY,
+                            aws_secret_access_key=AWS_Credentials.AWS_SECERET_KEY)
     with open(phoneNumber + ".txt", "w") as file:
         file.write(name)
     putFileInS3(s3Client, phoneNumber + ".txt")
     os.remove(phoneNumber + ".txt")
 
+
 if __name__ == "__main__":
     pass
-    #handleText("name: aaron green", "5024243665")
-    #handleText("billy joel", "5024243665")
