@@ -21,7 +21,7 @@ def vcf(path):
     return send_from_directory('/vcf/', path)
 
 
-@app.route('/input', methods = ['GET', 'POST']))
+@app.route('/input', methods = ['GET', 'POST'])
 def input():
     """ 
     Cues input processing and response. Called by twilio.
