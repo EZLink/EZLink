@@ -3,3 +3,4 @@ twilio_credentials.py
 __pycache__/
 commitScript.sh
 .idea/
+nohup.out

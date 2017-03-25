@@ -14,7 +14,6 @@ EZLink utilizes image recognition to extract a name and phone number from a phys
     * Make free Twilio and AWS accounts.
     * Provide the respective API keys in files called `twilio_credentials.py` and `aws_credentials.py`
     * `pip install -r requirements.txt` to install all dependencies.
-    * `conda install -c conda-forge opencv` to install openCV.
 
 ## INTERFACES
   * Everything is done by sending a text message. 
