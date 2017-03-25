@@ -4,3 +4,4 @@ boto3==1.4.4
 botocore==1.5.18
 s3transfer==0.1.10
 pytesseract==0.1.6
+opencv-python==3.2.0.6
