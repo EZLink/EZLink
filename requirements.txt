@@ -1,4 +1,4 @@
-Flask==0.12
+flask>=0.12.3
 twilio==5.7.0
 boto3==1.4.4
 botocore==1.5.18
